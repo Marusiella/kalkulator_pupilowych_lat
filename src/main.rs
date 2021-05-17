@@ -1,12 +1,12 @@
-use gtk::prelude::{BuilderExtManual, SwitchExtManual};
+use gtk::prelude::{BuilderExtManual};
 use gtk::{
-    ButtonExt, EntryExt, LabelExt, SpinButtonExt, SpinButtonSignals, SpinnerExt, SwitchExt,
+    ButtonExt, EntryExt, LabelExt, SpinButtonExt, SwitchExt,
     ToggleButtonExt, WidgetExt,
 };
 
 fn main() {
     gtk::init().unwrap();
-    let mut builder = gtk::Builder::from_file("gtk.glade");
+    let builder = gtk::Builder::from_file("gtk.glade");
     let window: gtk::Window = builder.get_object("window").unwrap();
     let spinbutton: gtk::SpinButton = builder.get_object("spinbutton").unwrap();
     let switch: gtk::Switch = builder.get_object("switch").unwrap();
@@ -102,6 +102,10 @@ fn main() {
 
         }
     });
+    window.connect_destroy(|_| {
+        gtk::main_quit();
+    });
+
 
     window.show_all();
     gtk::main();
