@@ -4,6 +4,9 @@ use gtk::{
     ToggleButtonExt, WidgetExt,
 };
 
+use glib;
+use glib_macros::clone;
+
 const TEXT: &str = r#"<?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.38.2 -->
 <interface>
@@ -181,7 +184,7 @@ fn main() {
     spinbutton.set_increments(1f64, 1f64);
     oblicz.set_label("Oblicz");
 
-    oblicz.connect_clicked(move |_| {
+    oblicz.connect_clicked(clone!(@strong oblicz => move |_| {
         if switch.get_active() {
             // pies
             &mut label1.show();
@@ -259,7 +262,7 @@ fn main() {
             }
 
         }
-    });
+    }));
     window.connect_destroy(|_| {
         gtk::main_quit();
     });
